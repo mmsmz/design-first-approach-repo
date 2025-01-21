@@ -1,0 +1,183 @@
+openapi: 3.0.2
+info:
+  title: Product One Product API
+  description: "Product One API"
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: info@company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about company
+  url: https://company.com/about/
+servers:
+  - url: http://localhost:3034/api/v1/company
+paths:
+  /productName/student:
+    post:
+      tags:
+        - ProductOne-controller
+      summary: Save the data
+      description: Save the data
+      operationId: saveStudentInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentRequestDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentResponseDto'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        500:
+          description: Internal Server failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+#  /productName/studentDetails:
+#    get:
+#      tags:
+#        - ProductOne-controller
+#      summary: getStudentDetails
+#      description: get ANB Validation Date
+#      operationId: getAnbValidationDate
+#      responses:
+#        200:
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/StudentListResponseDto'
+#        400:
+#          description: Bad Request
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ErrorMessage'
+#        500:
+#          description: Internal Server failure
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ErrorMessage'
+  /productName/studentDetails:
+    get:
+      tags:
+        - ProductOne-controller
+      summary: getStudentDetails
+      description: get ANB Validation Date
+      operationId: getStudentDetailsList
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentListResponseDto'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        500:
+          description: Internal Server failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  /productOne/student/{studentId}:
+    post:
+      tags:
+        - ProductOne-controller
+      summary: delete student details
+      description: delete student details
+      operationId:  deleteStudentDetails
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Student table row id
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        500:
+          description: Internal Server failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+components:
+  schemas:
+    ErrorMessage:
+      type: array
+      items:
+        properties:
+          code:
+            type: integer
+            format: int32
+          message:
+            type: string
+    StudentRequestDto:
+      type: object
+      properties:
+        student_id:
+          type: string
+        app_callback:
+          type: string
+        productCode:
+          type: string
+        studentCourse:
+          type: string
+    StudentResponseDto:
+      type: object
+      properties:
+        courseCode:
+          type: string
+        student_id:
+          type: string
+        url:
+          type: string
+        shortUrl:
+          type: string
+    StudentListResponseDto:
+      type: object
+      properties:
+        studentId:
+          type: integer
+          format: int64
+        code:
+          type: string
+        label:
+          type: string
+        activeStatus:
+          type: boolean

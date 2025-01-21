@@ -1,0 +1,87 @@
+openapi: 3.0.2
+info:
+  title: Common Endpoint For all Products
+  description: "Common Endpoint Listed"
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: info@company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about company
+  url: https://company.com/about/
+servers:
+  - url: http://localhost:3041/api/v1/directsales
+paths:
+  /isMobileRecordAvailable:
+    post:
+      tags:
+        - common-backend
+      summary: is record available
+      description: check the current status
+      operationId: dataAvailabilityCheck
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MobileRequestDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileResponseDto'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        500:
+          description: Internal Server failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+components:
+  schemas:
+    ErrorMessage:
+      type: array
+      items:
+        properties:
+          code:
+            type: integer
+            format: int32
+          message:
+            type: string
+    MobileRequestDto:
+      type: object
+      properties:
+        mobileType:
+          type: string
+    MobileResponseDto:
+      type: object
+      properties:
+        mobileCode:
+          type: string
+        desc:
+          type: string
+        errorDetails:
+          type: array
+          items:
+            type: string
+        serviceError:
+          type: string
+        data:
+          type: object
+          $ref: '#/components/schemas/AdditionalInformation'
+    AdditionalInformation:
+      type: object
+      properties:
+        status:
+          type: string

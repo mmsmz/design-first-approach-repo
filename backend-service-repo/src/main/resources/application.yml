@@ -1,0 +1,4 @@
+server:
+  port: 3020
+  servlet:
+    context-path: /api/v1/companyName/
