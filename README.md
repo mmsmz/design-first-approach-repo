@@ -1,3 +1,3 @@
 There is two repos 
-   - implemented the backRepo
-   - implemented the open-api  - yml file and xml configuration 
+   - implemented the backend-repo
+   - implemented the OPEN-API  - YML file and XML configuration 
